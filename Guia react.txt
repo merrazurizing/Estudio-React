@@ -1,0 +1,8 @@
+-instalar react  con nodejs
+npm install -g create-react-app
+
+-Crear proyecto react
+npx create-react-app aplicacion1 (nombre de la app)
+
+-correr la aplicacion (en la carpeta)
+npm start
