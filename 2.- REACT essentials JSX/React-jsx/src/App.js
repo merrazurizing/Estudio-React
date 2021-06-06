@@ -25,6 +25,10 @@ function App() {
       <div style={styles.innerDiv}>
         {sometext}
         {somediv}
+        {sometext}
+        {somediv}
+        {sometext}
+        {somediv}
       </div>
     </div>
     
