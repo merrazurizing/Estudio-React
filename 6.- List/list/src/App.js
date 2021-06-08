@@ -3,33 +3,61 @@ import './App.css';
 import Card from './Card';
 import faker from 'faker'
 function App() {
-  const [name,setName] = useState("Alan Smith")
-  const buttonMarkup = (
-    <div>
-      <button className="button button2">SI</button>
-      <button className="button button3">NO</button>
-    </div> 
-  )
+  const [cards,setCards] = useState([
+    {
+      id :'123',
+      name: faker.name.firstName(),
+      title: faker.name.jobTitle(),
+      avatar: faker.image.avatar()
+    },
+    {
+      id :'423',
+      name: faker.name.firstName(),
+      title: faker.name.jobTitle(),
+      avatar: faker.image.avatar()
+    },
+    {
+      id :'121',
+      name: faker.name.firstName,
+      title: faker.name.jobTitle(),
+      avatar: faker.image.avatar()
+    }
 
-  const changeNameHandler = name =>setName(name)
-  const changeInputHandler = event => setName(event.target.value)
-  
+  ])
   // Para mostrar y esconder algo , se usa state y luego el operador ? true : false (&& se usa si no tiene false)
   const [showCard,setShowCard] = useState(true)
   const toggleShowCard= ()=> setShowCard(!showCard)
 
-  const cardMarkup=showCard && 
-  <Card
-    avatar="https://cdn.fakercloud.com/avatars/sebashton_128.jpg"
-    name={name}
-    title="International Brand Strategist"
-    onChangeName={() =>changeNameHandler("Matias Errazuriz")}
-    onChangeInput={changeInputHandler}
-  >
-    {buttonMarkup}
-  </Card>
+  const deleteCardHanddler = (cardIndex)=> {
+    const cards_copy = [...cards]
+    cards_copy.splice(cardIndex,1)
+    console.log(cards_copy)
+    console.log(cards)
+    setCards(cards_copy)
 
+  }
 
+  const changeNameHandler = (event,id)=>{
+    //1. Saber que carta es (con el id)
+    const cardIndex = cards.findIndex(card=>card.id=id)
+    //2. Hacer copia de la carta
+    const cards_copy = [...cards]
+    //3. Cambiar el nombre de la carta especifica 
+    cards_copy[cardIndex].name = event.target.value
+    //4. Actualizar carta con su ultima copia
+    setCards(cards_copy)
+  }
+
+  const cardMarkup=showCard && (
+  cards.map((card,index)=><Card
+      avatar={card.avatar}
+      name={card.name}
+      title={card.title}
+      key={card.id}
+      onDelete = {() =>deleteCardHanddler(index)}
+      onChangeName = {(event)=>changeNameHandler(event,card.id)}
+    />)
+  )
   return (
     <div className="App"> 
       <button className="button" onClick={toggleShowCard}>
@@ -41,4 +69,3 @@ function App() {
 }
 
 export default App;
-
