@@ -1,7 +1,15 @@
 import React,{useState} from 'react'
 import './App.css';
-import Card from './Card';
+import Card from './element/Card'
 import faker from 'faker'
+import {ThemeProvider} from 'styled-components'
+import Button from './element/Button'
+
+const theme = {
+  primary: '#4CAF50',
+  mango: 'yellow'
+}
+
 function App() {
   const [cards,setCards] = useState([
     {
@@ -39,7 +47,7 @@ function App() {
 
   const changeNameHandler = (event,id)=>{
     //1. Saber que carta es (con el id)
-    const cardIndex = cards.findIndex(card=>card.id=id)
+    const cardIndex = cards.findIndex(card=>card.id === id)
     //2. Hacer copia de la carta
     const cards_copy = [...cards]
     //3. Cambiar el nombre de la carta especifica 
@@ -64,12 +72,15 @@ function App() {
     />)
   )
   return (
-    <div className="App"> 
+    <ThemeProvider theme={theme}>
+      <div className="App">
+      <Button color="mango"length={cards.length} > Toggle </Button>
       <button className={classes.join(' ')} onClick={toggleShowCard}>
         Toggle Show/Hide
       </button>
       {cardMarkup}
     </div>
+    </ThemeProvider>
   );
 }
 
