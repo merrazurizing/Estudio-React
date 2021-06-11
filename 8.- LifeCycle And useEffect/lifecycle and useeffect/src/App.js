@@ -12,8 +12,8 @@ const theme = {
 
 class App extends Component {
 
-
 constructor(props){
+  console.log("App js constructor")
   super(props)
   this.state={
     cards: [
@@ -40,6 +40,11 @@ constructor(props){
     showCard:true
   }
 }
+
+static getDerivedStateFromProps(props,state){
+  console.log("App js getDerivedStateFromProps",props)
+  return state
+}
   // Para mostrar y esconder algo , se usa state y luego el operador ? true : false (&& se usa si no tiene false)
   toggleShowCard= ()=> this.setState({showCard: !this.state.showCard})
 
@@ -61,7 +66,12 @@ constructor(props){
     this.setState({cards:cards_copy})
   }
 
-render(){ 
+  componentDidMount(){
+    console.log("App js componentDidMount")
+  }
+
+render(){
+  console.log("App js render")
   const classes = ['button']
 
   if(this.state.cards.length<3) classes.push('pink')
